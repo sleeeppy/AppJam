@@ -9,9 +9,8 @@ public class Line : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "fish")
-        {
-        }
+        if (other.gameObject.tag == "fishE")
+            gameManager.StageEnd();
     }
 }
 

@@ -129,7 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishName: fishA
   speed: 3
-  enemyScore: 0
+  fishScore: 10
   player: {fileID: 0}
   objectManager: {fileID: 0}
   gameManager: {fileID: 0}

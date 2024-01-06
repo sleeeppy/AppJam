@@ -28,11 +28,28 @@ public class Fish : MonoBehaviour
     {
         if (other.gameObject.tag == "Line")
         {
-            Player playerLogic = player.GetComponent<Player>();
-            playerLogic.score += fishScore;
+            if (gameObject.tag == "fishE")
+                gameManager.StageEnd();
 
-            other.gameObject.SetActive(false);
-            transform.rotation = Quaternion.identity;
+            if (gameObject.tag == "fish")
+            {
+                Player playerLogic = player.GetComponent<Player>();
+                playerLogic.score += fishScore;
+
+                gameObject.SetActive(false);
+                transform.rotation = Quaternion.identity;
+            }
+            else if (gameObject.tag == "shark")
+            {
+                Player playerLogic = player.GetComponent<Player>();
+                playerLogic.life--;
+                gameManager.UpdateLifeIcon(playerLogic.life);
+                if(playerLogic.life == 0)
+                {
+                    gameManager.GameOver();
+                    Time.timeScale = 0f;
+                }
+            }
         }
     }
 }

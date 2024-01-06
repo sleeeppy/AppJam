@@ -35,18 +35,24 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         spawnList = new List<Spawn>();
-        fishObjs = new string[] { "fishA", "fishB", "fishC", "sharkA", "sharkB", "sharkC" };
+        fishObjs = new string[] { "fishA", "fishB", "fishC", "fishE", "sharkA", "sharkB", "sharkC" };
         StageStart();
     }
 
     public void StageStart()
     {
+        Time.timeScale = 1f;
         stageAnim.SetTrigger("On");
         stageAnim.GetComponent<TextMeshProUGUI>().text = "Stage " + stage + "\nStart";
         clearAnim.GetComponent<TextMeshProUGUI>().text = "Stage " + stage + "\nClear!";
 
         ReadSpawnFile();
         fadeAnim.SetTrigger("In");
+        if(stage == 3)
+        {
+            Player playerLogic = player.GetComponent<Player>();
+            playerLogic.speed = 6;
+        }
     }
 
     public void StageEnd()
@@ -120,14 +126,17 @@ public class GameManager : MonoBehaviour
             case "fishC":
                 fishi = 2;
                 break;
-            case "sharkA":
+            case "fishE":
                 fishi = 3;
                 break;
-            case "sharkB":
+            case "sharkA":
                 fishi = 4;
                 break;
-            case "sharkC":
+            case "sharkB":
                 fishi = 5;
+                break;
+            case "sharkC":
+                fishi = 6;
                 break;
         }
 
@@ -188,7 +197,18 @@ public class GameManager : MonoBehaviour
 
     public void GameRetry()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
+
+    public void ToGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void FinishGame()
+    {
+        Application.Quit();
+    }
+
 
 }

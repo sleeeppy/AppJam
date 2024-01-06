@@ -7,6 +7,7 @@ public class ObjectManager : MonoBehaviour
 {
     public GameObject fishAPrefab;
     public GameObject fishBPrefab;
+    public GameObject fishEPrefab;
     public GameObject fishCPrefab;
     public GameObject sharkAPrefab;
     public GameObject sharkBPrefab;
@@ -15,6 +16,7 @@ public class ObjectManager : MonoBehaviour
     GameObject[] fishA;
     GameObject[] fishB;
     GameObject[] fishC;
+    GameObject[] fishE;
     GameObject[] sharkA;
     GameObject[] sharkB;
     GameObject[] sharkC;
@@ -26,6 +28,7 @@ public class ObjectManager : MonoBehaviour
         fishA = new GameObject[30];
         fishB = new GameObject[30];
         fishC = new GameObject[30];
+        fishE = new GameObject[5];
         sharkA = new GameObject[30];
         sharkB = new GameObject[30];
         sharkC = new GameObject[30];
@@ -51,6 +54,12 @@ public class ObjectManager : MonoBehaviour
         {
             fishC[i] = Instantiate(fishCPrefab);
             fishC[i].SetActive(false);
+        }
+
+        for (int i = 0; i < fishE.Length; i++)
+        {
+            fishE[i] = Instantiate(fishEPrefab);
+            fishE[i].SetActive(false);
         }
 
         for (int i = 0; i < sharkA.Length; i++)
@@ -84,6 +93,9 @@ public class ObjectManager : MonoBehaviour
                 break;
             case "fishC":
                 targetPool = fishC;
+                break;
+            case "fishE":
+                targetPool = fishE;
                 break;
             case "sharkA":
                 targetPool = sharkA;
@@ -120,6 +132,9 @@ public class ObjectManager : MonoBehaviour
                 break;
             case "fishC":
                 targetPool = fishC;
+                break;
+            case "fishE":
+                targetPool = fishE;
                 break;
             case "sharkA":
                 targetPool = sharkA;

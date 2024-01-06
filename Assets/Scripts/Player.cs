@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -56,6 +56,16 @@ public class Player : MonoBehaviour
         {
             animator.SetInteger("Input", (int)h);
         }*/
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            animator.SetTrigger("Left");
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            animator.SetTrigger("Right");
+        }
+
     }
     void Reload()
     {
