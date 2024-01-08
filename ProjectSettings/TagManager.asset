@@ -9,6 +9,7 @@ TagManager:
   - Border
   - FishBorder
   - Line
+  - fishE
   layers:
   - Default
   - TransparentFX

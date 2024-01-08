@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
         clearAnim.GetComponent<TextMeshProUGUI>().text = "Stage " + stage + "\nClear!";
 
         ReadSpawnFile();
-        fadeAnim.SetTrigger("In");
+        fadeAnim.SetTrigger("In");  
         if(stage == 3)
         {
             Player playerLogic = player.GetComponent<Player>();

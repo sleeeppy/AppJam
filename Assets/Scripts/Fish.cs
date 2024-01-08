@@ -51,5 +51,12 @@ public class Fish : MonoBehaviour
                 }
             }
         }
+        else if(gameObject.tag == "shark")
+        {
+            if(other.gameObject.tag == "fish")
+            {
+                other.gameObject.SetActive(false);
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using UnityEditorInternal.VersionControl;
 using UnityEngine;
 
@@ -23,8 +24,12 @@ public class Player : MonoBehaviour
     public bool isRespawnTime;
     public bool isHit;
 
+    public bool isSharktouch;
+    bool isPushing = false;
+
     Animator animator;
 
+    public Rigidbody rb;
     void Awake()
     {
         animator = GetComponentInChildren<Animator>();
@@ -34,6 +39,7 @@ public class Player : MonoBehaviour
     {
         Move();
         Reload();
+        Attack();
     }
 
     void Move()
@@ -52,24 +58,43 @@ public class Player : MonoBehaviour
 
         transform.position = curPos + nextPos;
 
-        /*if (Input.GetButtonDown("Horizontal") || Input.GetButtonUp("Horizontal"))
-        {
-            animator.SetInteger("Input", (int)h);
-        }*/
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            animator.SetTrigger("Left");
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            animator.SetTrigger("Right");
-        }
 
     }
     void Reload()
     {
         curHitDelay += Time.deltaTime;
+    }
+
+    void Attack()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            animator.SetTrigger("Left");
+            ApplyForceToShark(-10, 0, 10);  // Apply diagonal force to the left
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            isPushing = false;
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            animator.SetTrigger("Right");
+            ApplyForceToShark(10, 0, 10);  // Apply diagonal force to the right
+        }
+        else if (Input.GetMouseButtonUp(1))
+        {
+            isPushing = false;
+        }
+    }
+    void ApplyForceToShark(float xForce, float yForce, float zForce)
+    {
+        if (isSharktouch)
+        {
+            isPushing = true;
+            // Apply diagonal force
+            rb.AddForce(xForce, yForce, zForce, ForceMode.Impulse);
+        }
     }
     void OnTriggerEnter(Collider collision)
     {
@@ -94,6 +119,11 @@ public class Player : MonoBehaviour
         else if(collision.gameObject.tag == "fish")
         {
             collision.gameObject.SetActive(false);
+        }
+        else if(collision.gameObject.tag == "shark")
+        {
+            isSharktouch = true;
+            rb = collision.gameObject.GetComponent<Rigidbody>();
         }
     }
 
